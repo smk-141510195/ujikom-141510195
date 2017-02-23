@@ -4,7 +4,7 @@
 
 <div class="container">
 	<div class="panel panel-info">
-		<div class="panel-heading">Jabatan</div>
+		<div class="panel-heading">Pegawai</div>
 		<div class="panel-body">
 		<center><a class="btn btn-primary" href="{{url('pegawai/create')}}">Tambah Data</a></center><br>
 			<table class="table table-striped table-bordered table-hover">

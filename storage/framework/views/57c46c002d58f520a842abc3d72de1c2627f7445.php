@@ -22,9 +22,7 @@
 						<td> <?php echo e($no++); ?> </td>
 						<td> <?php echo e($tunjanganpegawais->Tunjangan->kode_tunjangan); ?> </td>
 						<td> <?php echo e($tunjanganpegawais->Pegawai->User->name); ?> </td>					
-						<td>
-							<a class="btn btn-xs btn-warning" href=" <?php echo e(route('tunjanganpegawai.edit', $tunjanganpegawais->id)); ?> ">Ubah</a>
-						</td>
+						
 						<td>
 							<form method="POST" action=" <?php echo e(route('tunjanganpegawai.destroy', $tunjanganpegawais->id)); ?> ">
 								<?php echo e(csrf_field()); ?>

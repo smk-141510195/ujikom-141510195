@@ -85,10 +85,7 @@ class TunjanganPegawaiController extends Controller
      */
     public function edit($id)
     {
-        $tunjanganpegawai=TunjanganPegawai::find($id);
-        $tunjangan=Tunjangan::all();
-        $pegawai=Pegawai::all();
-        return view('tunjanganpegawai.edit',compact('tunjanganpegawai','tunjangan','pegawai'));
+        
     }
 
     /**
@@ -100,13 +97,7 @@ class TunjanganPegawaiController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $this->validate($request,['kode_tunjangan_id'=>'required:unique:tunjangans','pegawai_id'=>'required']);
-        $update = TunjanganPegawai::where('id', $id)->first();
-       $update->kode_tunjangan_id = $request['kode_tunjangan_id'];
-       $update->pegawai_id = $request['pegawai_id'];
-       $update->update();
-
-       return redirect()->to('/tunjanganpegawai');
+        
     }
 
     /**

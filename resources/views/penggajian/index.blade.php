@@ -1,21 +1,18 @@
-@section('content1')
-				<div class="col-md-15 col-md-offset-0">
-                    <div class="panel panel-primary">
-                        <div class="panel-body">
-        <div class="col-md-15 col-md-offset-0">
-            <div class="panel panel-primary">
-			    <div class="panel-heading">Data Penggajian</div>
-	                <div class="panel-body">
+@extends('layouts.app')
+@section('content')
+				<div class="container">
+	<div class="panel panel-info">
+		<div class="panel-heading">Penggajian</div>
+		<div class="panel-body">
+				        <table class="table table-striped table-bordered table-hover">
 				        
-				        <table border="2" class="table table-success table-border table-hover">
-										<thead >
-											<tr>
+										<thead>
+											<tr bgcolor="pink">
 												<th>No</th>
 												<th>Pegawai</th>
-												<th>Jumlah Uang Tunjangan</th>
 												<th>Jumlah Jam Lembur</th>
 												<th>Jumlah Uang Lembur</th>
-												<th>gaji Pokok</th>
+												<th>Gaji Pokok</th>
 												<th>Total Gaji</th>
 												<th>Tanggal Pengambilan</th>
 												<th>Status Pengambilan</th>
@@ -24,44 +21,43 @@
 										</thead>
 										@php $no=1;   @endphp
 										<tbody>
-											@foreach($pegawai as $pegawais)
+											@foreach($pegawai as $data)
 											<tr>
 												<td>{{$no++}}</td>
-												<td>{{$pegawais->User->name}}</td>
-												<td>
-												@foreach($tunjangan as $tunjangans)
-													
-													@if($tunjangans->pegawai_id == $pegawais->id)
-														{{$tunjangans->Tunjangan->besaran_uang}}
-														@php $a=$tunjangans->tunjangan->besaran_uang; ; @endphp
-													@endif
-
-												@endforeach
-												</td>
+												<td>{{$data->User->name}}</td>
+												
 												<td>
 													
-												@foreach($lemburpegawai as $lemburpegawais)
-													@if($lemburpegawais->pegawai_id == $pegawais->id)
-														{{$lemburpegawais->jumlah_jam}}
-														@php $b=$lemburpegawais->jumlah_jam*$lemburpegawais->KategoriLembur->besaran_uang; @endphp
+												@foreach($lemburpegawai as $data2)
+													@if($data2->pegawai_id == $data->id)
+														{{$data2->jumlah_jam}}
+														@php $b=$data2->Jumlah_jam*$data2->kategorilembur->besaran_uang; @endphp
 
 													@endif
 												@endforeach
 												</td>
 												<td>
 													
-												@foreach($lemburpegawai as $lemburpegawais)
-													@if($lemburpegawais->pegawai_id == $pegawais->id)
-														{{$lemburpegawais->jumlah_jam*$lemburpegawais->KategoriLembur->besaran_uang}}
-														@php $b=$lemburpegawais->jumlah_jam*$lemburpegawais->KategoriLembur->besaran_uang; @endphp
+												@foreach($lemburpegawai as $data2)
+													@if($data2->pegawai_id == $data->id)
+														{{$data2->jumlah_jam*$data2->kategorilembur->besaran_uang}}
+														@php $b=$data2->jumlah_jam*$data2->kategorilembur->besaran_uang; @endphp
 
 													@endif
 												@endforeach
 												</td>
-												<td>{{$pegawais->Golongan->besaran_uang+$pegawais->Jabatan->besar_uang}}</td>
-												@php $c=$pegawais->Golongan->besaran_uang+$pegawais->Jabatan->besaran_uang; @endphp
+												<td>{{$data->golongan->besaran_uang+$data->jabatan->besaran_uang}}
+												@php $c=$data->golongan->besaran_uang+$data->jabatan->besaran_uang; @endphp</td>
 
-												<td>{{$a + $b + $c}}</td>
+												<td>@foreach($tunjangan as $data1)
+														@foreach($penggajian as $data3)
+															@if($data3->tunjangan_pegawai_id == $data1->id && $data1->pegawai->id == $data->id)
+															{{$data3->jumlah_uang_lembur*$data3->gaji_pokok}}
+															
+															@endif
+														@endforeach
+													@endforeach
+													</td>
 												<td>
 													
 												@foreach($tunjangan as $data1 )
@@ -121,7 +117,8 @@
 
 													
 												</td>
-												<td>dj</td>
+												<td></td>
+												
 											</tr>
 											@endforeach
 										</tbody>

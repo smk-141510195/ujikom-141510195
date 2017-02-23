@@ -54,6 +54,7 @@
                             <li><a href="<?php echo e(url('/login')); ?>">Login</a></li>
                             <li><a href="<?php echo e(url('/register')); ?>">Register</a></li>
                         <?php else: ?>
+                        
                          <li><a href="<?php echo e(url('/jabatan')); ?>">Jabatan</a></li>
                           <li><a href="<?php echo e(url('/golongan')); ?>">Golongan</a></li>
                            <li><a href="<?php echo e(url('/pegawai')); ?>">Pegawai</a></li>
@@ -62,6 +63,7 @@
                            <li><a href="<?php echo e(url('/tunjangan')); ?>">Tunjangan</a></li>
                            <li><a href="<?php echo e(url('/tunjanganpegawai')); ?>">Tunjangan Pegawai</a></li>
                            <li><a href="<?php echo e(url('/penggajian')); ?>">Penggajian</a></li>
+                           
                             <li class="dropdown">
                                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
                                     <?php echo e(Auth::user()->name); ?> <span class="caret"></span>

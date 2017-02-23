@@ -24,9 +24,7 @@
 						<td> {{$no++}} </td>
 						<td> {{$tunjanganpegawais->Tunjangan->kode_tunjangan}} </td>
 						<td> {{$tunjanganpegawais->Pegawai->User->name}} </td>					
-						<td>
-							<a class="btn btn-xs btn-warning" href=" {{route('tunjanganpegawai.edit', $tunjanganpegawais->id)}} ">Ubah</a>
-						</td>
+						
 						<td>
 							<form method="POST" action=" {{route('tunjanganpegawai.destroy', $tunjanganpegawais->id)}} ">
 								{{csrf_field()}}

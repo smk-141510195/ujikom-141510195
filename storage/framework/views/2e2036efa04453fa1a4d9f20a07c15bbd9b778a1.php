@@ -2,7 +2,7 @@
 
 <div class="container">
 	<div class="panel panel-primary">
-		<div class="panel-heading">Ubah Data Kategori Lembur</div>
+		<div class="panel-heading">Ubah Data Lembur Pegawai</div>
 		<div class="panel-body">
 					<?php echo Form::model($lemburpegawai,['method'=>'PATCH','route'=>['lemburpegawai.update',$lemburpegawai->id]]); ?>
 

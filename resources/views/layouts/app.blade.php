@@ -53,6 +53,7 @@
                             <li><a href="{{ url('/login') }}">Login</a></li>
                             <li><a href="{{ url('/register') }}">Register</a></li>
                         @else
+                        
                          <li><a href="{{ url('/jabatan') }}">Jabatan</a></li>
                           <li><a href="{{ url('/golongan') }}">Golongan</a></li>
                            <li><a href="{{ url('/pegawai') }}">Pegawai</a></li>
@@ -61,6 +62,7 @@
                            <li><a href="{{ url('/tunjangan') }}">Tunjangan</a></li>
                            <li><a href="{{ url('/tunjanganpegawai') }}">Tunjangan Pegawai</a></li>
                            <li><a href="{{ url('/penggajian') }}">Penggajian</a></li>
+                           
                             <li class="dropdown">
                                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
                                     {{ Auth::user()->name }} <span class="caret"></span>
