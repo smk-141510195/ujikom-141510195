@@ -152,73 +152,132 @@ class PegawaiController extends Controller
     public function update(Request $request, $id)
     {
         //
-        $pegawai=Pegawai::where('id',$id)->first();
-        $user=User::where('id',$pegawai->user_id)->first();
-        if($pegawai['nip'] != Request('nip') || $user['email'] != Request('email')){
-            $roles=[
-            'nip'=>'required|unique:pegawais',
-            'jabatan_id'=>'required',
-            'golongan_id'=>'required',
-            'photo'=>'required',
-            'name' => 'required|max:255',
-            'permision' => 'required',
-            'email' => 'required|email|max:255|unique:users',
-        ];
-        }
-        else{
-            $roles=[
-            'nip'=>'required',
-            'jabatan_id'=>'required',
-            'golongan_id'=>'required',
-            'photo'=>'required',
-            'name' => 'required|max:255',
-            'permision' => 'required',
-            'email' => 'required|email|max:255',
-        ];
-        }
-        $sms=[
-            'nip.required'=>'jangan kosong',
-            'nip.unique'=>'jangan sama',
-            'jabatan_id.required'=>'jangan kosong',
-            'golongan_id.required'=>'jangan kosong',
-            'photo.required'=>'jangan kosong',
-            'name.required'=>'jangan kosong',
-            'name.max'=>'max 255',
-            'permision.required'=>'jangan kosong',
-            'email.required'=>'jangan kosong',
-            'email.email'=>'harus berbentuk email',
-            'email.max'=>'max 255',
-            'email.unique'=>'sudah ada',
-            
-        ];
-        $validasi=Validator::make(Input::all(),$roles,$sms);
-        if($validasi->fails()){
-            return redirect()->back()
-                ->WithErrors($validasi)
-                ->WithInput();
-        }
-        $user=User::find($pegawai->user_id);
-        $user->name = Request('name');
-        $user->type_user = Request('permision');
-        $user->email = Request('email');
-        $user->save();
-        
-        $file= Input::file('photo');
-        $destination= '/assets/image/';
-        $filename=$file->getClientOriginalName();
-        $uploadsuccess=$file->move($destination,$filename);
-        if($uploadsuccess){
+        $old_pegawai = Pegawai::where('id', $id)->first();
+      $old_email = User::where('id', $old_pegawai->user_id)->first()->email;
+      $data = Request::all();
+      $validati = ([
+          'name' => 'required|max:255',
+          'email' => 'required|email|max:255|unique:users',
+          'nip'=>'required|unique:pegawai',
+          'jabatan_id' => 'required',
+          'golongan_id' => 'required',
+          'photo' => 'required',
+          ]);
+      if ($old_email==$data['email']) 
+      {
+          $validati['email'] = '';
+          $data['email'] = $old_email;
+      }
+      if (Input::file() == null)
+      {
+          $validati['photo'] = '';
+      }
+      if ($data['nip']==$old_pegawai['nip'])
+      {
+          $validati['nip'] = '';
+      }
+      else
+      {
+          $validati['nip'] = 'required|unique:pegawais';
+      }
 
-        
-            $pegawai =Pegawai::find($id);
-            $pegawai->nip = Request('nip');
-            $pegawai->permision = $user->id;
-            $pegawai->jabatan_id = Request('jabatan_id');
-            $pegawai->golongan_id = Request('golongan_id');
-            $pegawai->photo=$filename;
-            $pegawai->update();
-        return redirect('pegawai');
-        }
+      $validation = Validator::make(Request::all(), $validati);
+
+      if ($validation->fails()) {
+          return redirect('pegawai/'.$id.'/edit')->withErrors($validation)->withInput();
+      }
+
+      $user = User::where('id', $old_pegawai->user_id)->first()->update([
+          'name' => $data['name'],
+          'email' => $data['email'],
+          ]);
+      $user = User::where('id', $old_pegawai->user_id)->first();
+      
+
+      if (Input::file()==null)
+      {
+          $data['photo'] = $old_pegawai->poto;
+
+      }
+      else
+      {
+          $file = Input::file('photo');
+          $destination_path = public_path().'/assets/image';
+          $filename = $user->name.'_'.$file->getClientOriginalName();
+          $uploadSuccess = $file->move($destination_path,$filename);
+          $data['photo'] = $filename;
+      }
+
+      pegawai::where('id', $id)->first()->update([
+          'nip' => $data['nip'],
+          'jabatan_id' => $data['jabatan_id'],
+          'golongan_id' => $data['golongan_id'],
+          'photo' => $data['photo'],
+          ]);
+      return redirect('pegawai');
+$old_pegawai = Pegawai::where('id', $id)->first();
+      $old_email = User::where('id', $old_pegawai->user_id)->first()->email;
+      $data = Request::all();
+      $validati = ([
+          'name' => 'required|max:255',
+          'email' => 'required|email|max:255|unique:users',
+          'nip'=>'required|unique:pegawai',
+          'jabatan_id' => 'required',
+          'golongan_id' => 'required',
+          'poto' => 'required',
+          ]);
+      if ($old_email==$data['email']) 
+      {
+          $validati['email'] = '';
+          $data['email'] = $old_email;
+      }
+      if (Input::file() == null)
+      {
+          $validati['photo'] = '';
+      }
+      if ($data['nip']==$old_pegawai['nip'])
+      {
+          $validati['nip'] = '';
+      }
+      else
+      {
+          $validati['nip'] = 'required|unique:pegawais';
+      }
+
+      $validation = Validator::make(Request::all(), $validati);
+
+      if ($validation->fails()) {
+          return redirect('pegawai/'.$id.'/edit')->withErrors($validation)->withInput();
+      }
+
+      $user = User::where('id', $old_pegawai->user_id)->first()->update([
+          'name' => $data['name'],
+          'email' => $data['email'],
+          ]);
+      $user = User::where('id', $old_pegawai->user_id)->first();
+      
+
+      if (Input::file()==null)
+      {
+          $data['photo'] = $old_pegawai->photo;
+
+      }
+      else
+      {
+          $file = Input::file('photo');
+          $destination_path = public_path().'/assets/image';
+          $filename = $user->name.'_'.$file->getClientOriginalName();
+          $uploadSuccess = $file->move($destination_path,$filename);
+          $data['photo'] = $filename;
+      }
+
+      pegawai::where('id', $id)->first()->update([
+          'nip' => $data['nip'],
+          'jabatan_id' => $data['jabatan_id'],
+          'golongan_id' => $data['golongan_id'],
+          'photo' => $data['photo'],
+          ]);
+      return redirect('pegawai');
     }
 
     /**

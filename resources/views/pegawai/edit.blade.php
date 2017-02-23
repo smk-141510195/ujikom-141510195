@@ -29,8 +29,13 @@
                             <label for="permision" class="col-md-4 control-label">Permission</label>
 
                             <div class="col-md-6">
-                                <input id="permision" type="text" class="form-control" name="permision" value="{{$pegawai->user->permision }}"  autofocus>
-
+                                <select id="permision" class="form-control" name="permision" value="{{ old('permision') }}"  autofocus>
+                                    <option value="">Pilih</option>
+                                    <option value="Admin">Admin</option>
+                                    <option value="HRD">HRD</option>
+                                    <option value="Bagian Keuangan">Bagian Keuangan</option>
+                                    <option value="Karyawan">Karyawan</option>
+                                </select>
                                 @if ($errors->has('permision'))
                                     <span class="help-block">
                                         <strong>{{ $errors->first('permision') }}</strong>
@@ -77,24 +82,24 @@
                             </div>
                         </div>
 
-                        <div class="form-group{{ $errors->has('user_id') ? ' has-error' : '' }}">
-                            <label for="user_id" class="col-md-4 control-label">Nama Pegawai</label>
+                        <div class="form-group{{ $errors->has('jabatan_id') ? ' has-error' : '' }}">
+                            <label for="jabatan_id" class="col-md-4 control-label">Nama Jabatan</label>
 
                             <div class="col-md-6">
-                                <select name="user_id" class="form-control">
+                                <select name="jabatan_id" class="form-control">
                                     <option value="">pilih</option>
-                                    @foreach($user as $data)
-                                    <option value="{{$data->id}}">{{$data->name}}</option>
+                                    @foreach($jabatan as $data)
+                                    <option value="{{$data->id}}">{{$data->nama_jabatan}}</option>
                                     @endforeach
                                 </select>
 
-                                @if ($errors->has('user_id'))
+                                @if ($errors->has('jabatan_id'))
                                     <span class="help-block">
-                                        <strong>{{ $errors->first('user_id') }}</strong>
+                                        <strong>{{ $errors->first('jabatan_id') }}</strong>
                                     </span>
                                 @endif
                             </div>
-                        </div> -->
+                        </div>
 
                         <div class="form-group{{ $errors->has('golongan_id') ? ' has-error' : '' }}">
                             <label for="golongan_id" class="col-md-4 control-label">Nama Golongan</label>
@@ -115,24 +120,7 @@
                             </div>
                         </div>
 
-                        <div class="form-group{{ $errors->has('jabatan_id') ? ' has-error' : '' }}">
-                            <label for="jabatan_id" class="col-md-4 control-label">Nama Jabatan</label>
-
-                            <div class="col-md-6">
-                                <select name="jabatan_id" class="form-control">
-                                    <option value="">pilih</option>
-                                    @foreach($jabatan as $data)
-                                    <option value="{{$data->id}}">{{$data->nama_jabatan}}</option>
-                                    @endforeach
-                                </select>
-
-                                @if ($errors->has('jabatan_id'))
-                                    <span class="help-block">
-                                        <strong>{{ $errors->first('jabatan_id') }}</strong>
-                                    </span>
-                                @endif
-                            </div>
-                        </div>
+                        
 
                         <div class="form-group {{ $errors->has('photo') ? ' has-error' : '' }}">
  
