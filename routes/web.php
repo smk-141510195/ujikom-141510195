@@ -27,3 +27,4 @@ Route::resource('/lemburpegawai', 'LemburPegawaiController');
 Route::resource('/tunjangan', 'TunjanganController');
 Route::resource('/penggajian', 'PenggajianController');
 Route::resource('/tunjanganpegawai', 'TunjanganPegawaiController');
+Route::get('query', 'PenggajianController@search');

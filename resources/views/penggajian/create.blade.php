@@ -1,21 +1,23 @@
-<div class="container">
-    <div class="row">
+@extends('layouts.app')
+@section('content')
+    <div class="container">
+        <div class="row">
         <div class="col-md-8 col-md-offset-2">
-            <div class="panel panel-default">
-                <div class="panel-heading">Buat Data Kategori Lembur</div>
+            <div class="panel panel-primary">
+                <div class="panel-heading">Penggajian</div>
                 <div class="panel-body">
-                    <form class="form-horizontal" role="form" method="POST" action="{{ url('/penggajian') }}" enctype="multipart/form-data">
+                     <form class="form-horizontal" role="form" method="POST" action="{{ url('/penggajian') }}">
                         {{ csrf_field() }}
-                
-                  <div class="col-md-12">
+
+                            <div class="col-md-12">
                                 <label for="Jabatan">Nama Pegawai</label>
-                                    <select class="col-md-6 form-control" name="id_tunjangan_pegawai">
-                                        @foreach($tunjangan as $datatunjangan)
-                                            <option  value="{{$datatunjangan->id}}" >{{$datatunjangan->pegawai->User->name}}</option>
+                                    <select class="col-md-6 form-control" name="tunjangan_pegawai_id">
+                                        @foreach($tunjangan as $tunjangans)
+                                            <option  value="{{$tunjangans->id}}" >{{$tunjangans->pegawai->User->name}}</option>
                                         @endforeach
                                     </select>
                                     <span class="help-block">
-                                        {{$errors->first('id_tunjangan_pegawai')}}
+                                        {{$errors->first('tunjangan_pegawai_id')}}
                                     </span>
                                     <div>
                                         @if(isset($error))
@@ -23,22 +25,16 @@
                                         @endif
                                     </div>
                             </div>
+                            <div class="col-md-12"></div>
 
-                        <div class="form-group">
-                            <div class="col-md-6 col-md-offset-4">
-                                <button type="submit" class="btn btn-primary">
-                                    Buat Data
-                                </button>
+                            <div class="col-md-12" >
+                                <button type="submit" class="btn btn-primary form-control">Tambah</button>
                             </div>
                         </div>
-                    </form>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
-</div>
-</div>
-            </div>
-        </div>
-    </div>
-</div>
+        </form>
+
+@endsection
