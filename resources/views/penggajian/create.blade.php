@@ -1,19 +1,27 @@
 @extends('layouts.app')
+
+@section('penggajian')
+    active
+@endsection
+@section('judul')
+    Create PEnggajian Bulan Ini
+@endsection
 @section('content')
+
     <div class="container">
         <div class="row">
-        <div class="col-md-8 col-md-offset-2">
-            <div class="panel panel-primary">
-                <div class="panel-heading">Penggajian</div>
-                <div class="panel-body">
+            <div class="col-md-6 ">
+                <div class="panel panel-default">
+                    <div class="panel-heading"><h3>Penggajian</h3> </div>
+                    <div class="panel-body">
                      <form class="form-horizontal" role="form" method="POST" action="{{ url('/penggajian') }}">
                         {{ csrf_field() }}
 
                             <div class="col-md-12">
                                 <label for="Jabatan">Nama Pegawai</label>
                                     <select class="col-md-6 form-control" name="tunjangan_pegawai_id">
-                                        @foreach($tunjangan as $tunjangans)
-                                            <option  value="{{$tunjangans->id}}" >{{$tunjangans->pegawai->User->name}}</option>
+                                        @foreach($tunjangan as $datatunjangan)
+                                            <option  value="{{$datatunjangan->id}}" >{{$datatunjangan->pegawai->User->name}}</option>
                                         @endforeach
                                     </select>
                                     <span class="help-block">
